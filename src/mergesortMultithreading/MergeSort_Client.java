@@ -7,16 +7,17 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class MergeSort_Client {
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
         List<Integer> listToSort = List.of(8, 7, 9, 1, 2, 4, 3, 5, 6, 10);
 
-        ExecutorService executorService = Executors.newCachedThreadPool();
+        ExecutorService es = Executors.newCachedThreadPool();
+        MergeSort mergeSort = new MergeSort(listToSort, es);
+        Future<List<Integer>> futurefinalList = es.submit(mergeSort);
 
-        mergeSort mergeSorter = new mergeSort(listToSort, executorService);
-        Future<List<Integer>> sortedListFuture = executorService.submit(mergeSorter);
+        List<Integer> finalSortedList = futurefinalList.get();
 
-        List<Integer> sortedList = sortedListFuture.get();
-
-        System.out.println(sortedList);
+        System.out.println(finalSortedList);
+        es.shutdown();
     }
 }

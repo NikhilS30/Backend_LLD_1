@@ -1,9 +1,9 @@
 package operatingSystem;
 
-public class TaskClass implements Runnable{
+public class NumberPrinter implements Runnable{
 
 	public int numberToprint;
-	public TaskClass(int i) {
+	public NumberPrinter(int i) {
 		numberToprint=i;
 	}
 
